@@ -1,0 +1,9 @@
+.root-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100%;
+  padding: 2rem;
+}

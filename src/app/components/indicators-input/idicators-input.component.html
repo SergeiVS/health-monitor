@@ -1,0 +1,93 @@
+<form
+  [formGroup]="bloodPresureValuesForm"
+  (ngSubmit)="onSubmit()"
+  class="form-container"
+>
+  <div class="inputs-container">
+    <div class="inputs-groups-wrapper">
+      <div class="input-wrapper">
+        <label for="date">Date*</label>
+        <input
+          id="date"
+          class="input-field"
+          type="date"
+          formControlName="date"
+          style="width: 7rem"
+          value="{{ currentDate() }}"
+        />
+      </div>
+      <div class="input-wrapper">
+        <label for="time">Time*</label>
+        <input
+          id="time"
+          class="input-field"
+          type="time"
+          formControlName="time"
+          style="width: 5rem"
+          value="{{ currentTime() }}"
+        />
+      </div>
+    </div>
+    <div class="inputs-groups-wrapper">
+      <div class="input-wrapper">
+        <label for="sys">Sys*</label>
+        <input
+          id="sys"
+          class="input-field"
+          type="number"
+          formControlName="sys"
+          placeholder="SYS"
+        />
+      </div>
+      <div class="input-wrapper">
+        <label for="dis">Dis*</label>
+        <input
+          id="dis"
+          class="input-field"
+          type="number"
+          formControlName="dis"
+          placeholder="DIS"
+        />
+      </div>
+      <div class="input-wrapper">
+        <label for="puls">Puls</label>
+        <input
+          id="puls"
+          class="input-field"
+          type="number"
+          formControlName="puls"
+          placeholder="Puls"
+        />
+      </div>
+    </div>
+  </div>
+  <button
+    matButton="filled"
+    type="submit"
+    (submit)="onSubmit()"
+    [disabled]="!bloodPresureValuesForm.valid"
+  >
+    Insert Values
+  </button>
+</form>
+@if(!bloodPresureValuesForm.valid && bloodPresureValuesForm.touched &&
+bloodPresureValuesForm.dirty){
+
+<div class="errors-container">
+  <ul>
+    @if(sysControl?.hasError('required')){
+    <li>Sys is required</li>
+    } @if(sysControl?.hasError('max') || sysControl?.hasError('min')){
+    <li>Sys value is not plusible</li>
+    } @if(disControl?.hasError('required')){
+    <li>Dis is required</li>
+    } @if(disControl?.hasError('max') || disControl?.hasError('min')){
+    <li>Dis value is not plusible</li>
+    } @if(bloodPresureValuesForm.hasError('valuesNotValid')){
+    <li>Sys have to be over dis</li>
+    }@if(bloodPresureValuesForm.hasError('dateNotValid')){
+    <li>Inserted date and time is in the future</li>
+    }
+  </ul>
+</div>
+}

@@ -1,0 +1,49 @@
+<form [formGroup]="timeRangeForm" class="form-container">
+  <div class="inputs-groups-wrapper">
+    <div class="input-wrapper">
+      <label for="from">From*</label>
+      <input
+        id="from"
+        class="input-field"
+        type="date"
+        formControlName="from"
+        style="width: 7rem"
+        value="{{ currentDate() }}"
+      />
+    </div>
+    <div class="input-wrapper">
+      <label for="to">To*</label>
+      <input
+        id="to"
+        class="input-field"
+        type="date"
+        formControlName="to"
+        style="width: 7rem"
+        value="{{ currentDate() }}"
+      />
+    </div>
+  </div>
+  <button
+    class="submit-button"
+    matButton="filled"
+    type="submit"
+    (submit)="onSubmit()"
+    [disabled]="!timeRangeForm.valid"
+  >
+    Search
+  </button>
+</form>
+
+@if(!timeRangeForm.valid){
+<ul class="errors-container">
+  @if(from?.hasError('required')){
+  <li>From field is required</li>
+  } @if(to?.hasError('required')){
+  <li>To field is required</li>
+  } @if(timeRangeForm.hasError('dateNotValid')){
+  <li>To date is not valid</li>
+  } @if(timeRangeForm.hasError('formIsAfterTo')){
+  <li>From date must be before To</li>
+  }
+</ul>
+}
