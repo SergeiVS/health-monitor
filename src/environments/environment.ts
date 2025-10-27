@@ -6,7 +6,12 @@ export const environment = {
   production: false,
   GAPI_CLIENT_ID:
     '484210831778-dtgeom5m2ppqhhs19dou8ouqimhlgvr1.apps.googleusercontent.com',
-    GAPI_API_KEY: 'AIzaSyDSjtnu-Q41BpMztjVLcebW4QftJ-akEDc'
+  GAPI_API_KEY: 'AIzaSyDSjtnu-Q41BpMztjVLcebW4QftJ-akEDc',
+  GAPI_DISCOVERY_DOCS: [
+    // 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
+    'https://sheets.googleapis.com/$discovery/rest?version=v4',
+  ],
+  GAPI_SCOPE:'https://www.googleapis.com/auth/drive.file'
 };
 
 /*

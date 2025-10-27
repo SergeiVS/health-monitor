@@ -1,39 +1,24 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { RouterOutlet } from "@angular/router";
-import { NavBarComponent } from "src/app/components/nav-bar/nav-bar.component";
-// import { GoogleSigninService } from 'src/app/service/auth/google-signin.service';
-// import { MatButtonModule } from '@angular/material/button';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { MatButton } from '@angular/material/button';
+import { NavBarComponent } from 'src/app/components/nav-bar/nav-bar.component';
+import { GoogleAuthService } from 'src/app/service/google-service/google-auth.service';
 
 @Component({
   selector: 'app-root-page',
   templateUrl: './root-page.component.html',
   styleUrls: ['./root-page.component.scss'],
-  imports: [RouterOutlet, NavBarComponent
-    // , MatButtonModule
-  ],
+  imports: [ NavBarComponent, MatButton, RouterOutlet],
 })
-export class RootPageComponent  implements OnInit {
+export class RootPageComponent {
+  constructor(private _googleService: GoogleAuthService) {}
 
- user!: gapi.auth2.GoogleUser | null;
-
-  constructor(
-    // private signInService: GoogleSigninService,
-    // private ref: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    // this.signInService.observanle().subscribe((user) => {
-    //   this.user = user;
-    //   this.ref.detectChanges()
-    // });
+  onClick(){
+    this._googleService.signIn()
   }
 
-  // signIn(){
-  //   this.signInService.signIn()
-  // }
-
-  // signOut(){
-  //   this.signInService.signOut()
-  // }
-
+  onLogOut(){
+    this._googleService.signOut()
+  
+  }
 }
