@@ -6,13 +6,17 @@
 >
   <mat-icon>menu</mat-icon>
 </button>
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" class="menu">
   <a routerLink="/home" mat-menu-item class="menu-item">
     <mat-icon>home</mat-icon>
     <span>Home</span></a
   >
   <a routerLink="/statistics" mat-menu-item class="menu-item">
     <mat-icon>search</mat-icon>
-    <span>Statistic</span></a
+    <span>Werte suchen</span></a
+  >
+  <a routerLink="/statistics/results" mat-menu-item class="menu-item">
+    <mat-icon>list</mat-icon>
+    <span>Suchergebmis</span></a
   >
 </mat-menu>
