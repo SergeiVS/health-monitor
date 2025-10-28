@@ -73,6 +73,5 @@ export class BloodPresureInputForm implements OnInit {
       dis: this.disControl?.value,
       puls: this.formControls['puls'].value,
     };
-    alert(JSON.stringify(formValues));
   };
 }

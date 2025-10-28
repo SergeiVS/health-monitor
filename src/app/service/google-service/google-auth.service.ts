@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, linkedSignal, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -7,8 +8,9 @@ import { environment } from 'src/environments/environment';
 export class GoogleAuthService {
   private googleTokenCient!: google.accounts.oauth2.TokenClient;
   private token!: string;
+  private isLoggedOn = signal(false);
 
-  constructor() {
+  constructor(private router: Router) {
     gapi.load('client', () => {
       gapi.client.init({
         clientId: environment.GAPI_CLIENT_ID,
@@ -25,6 +27,8 @@ export class GoogleAuthService {
         gapi.client.setToken({
           access_token: this.token,
         });
+        this.isLoggedOn.set(true);
+        this.router.navigate(['/home'])
       },
     });
   }
@@ -33,7 +37,7 @@ export class GoogleAuthService {
     if (gapi.client.getToken() === null) {
       this.googleTokenCient.requestAccessToken({ prompt: 'consent' });
     } else {
-      this.googleTokenCient.requestAccessToken({ prompt: 'consent' });
+      this.googleTokenCient.requestAccessToken({ prompt: '' });
     }
   }
 
@@ -41,6 +45,9 @@ export class GoogleAuthService {
     google.accounts.oauth2.revoke(this.token, () => {
       gapi.client.setToken(null);
       this.token = '';
+      this.isLoggedOn.set(false);
     });
   }
+
+  public loginStateSignal = linkedSignal(() => this.isLoggedOn());
 }

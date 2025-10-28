@@ -1,9 +1,13 @@
 <div class="nav-bar-container">
-  <diV>
+  <div>
     <img
       src="../../../assets/icon/blood_pressure_24dp_BB271A_FILL0_wght400_GRAD0_opsz24.svg"
     />
-  </diV>
+  </div>
+  <button matButton="" class="sign-button" (click)="onClick()">
+    <span>{{ buttonTitle() }}</span
+    ><mat-icon>{{ iconName() }}</mat-icon>
+  </button>
   <nav>
     <app-menu></app-menu>
   </nav>
