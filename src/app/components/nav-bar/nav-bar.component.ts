@@ -4,6 +4,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAnchor } from '@angular/material/button';
 import { GoogleAuthService } from 'src/app/service/google-service/google-auth.service';
+import { DriveService } from 'src/app/service/google-service/drive.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,7 +31,8 @@ export class NavBarComponent {
 
   constructor(
     private googleAuthService: GoogleAuthService,
-    private router: Router
+    private router: Router,
+    private driveService: DriveService
   ) {}
 
   onLogIn() {
@@ -40,6 +42,10 @@ export class NavBarComponent {
   onLogOut() {
     this.googleAuthService.signOut();
     this.router.navigate(['/login'], { state: { reload: false } });
+  }
+
+  getList() {
+    this.driveService.getWorkingFile();
   }
 
   onClick() {

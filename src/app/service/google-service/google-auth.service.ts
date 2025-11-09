@@ -11,25 +11,19 @@ export class GoogleAuthService {
   private isLoggedOn = signal(false);
 
   constructor(private router: Router) {
-    gapi.load('client', () => {
-      gapi.client.init({
-        clientId: environment.GAPI_CLIENT_ID,
-        apiKey: environment.GAPI_API_KEY,
-        discoveryDocs: environment.GAPI_DISCOVERY_DOCS,
-      });
+    gapi.load('client', async () => {
+      await gapi.client
+        .init({
+          clientId: environment.GAPI_CLIENT_ID,
+          apiKey: environment.GAPI_API_KEY,
+          discoveryDocs: environment.GAPI_DISCOVERY_DOCS,
+        })
     });
 
     this.googleTokenCient = google.accounts.oauth2.initTokenClient({
       client_id: environment.GAPI_CLIENT_ID,
       scope: environment.GAPI_SCOPE,
-      callback: (response) => {
-        this.token = response.access_token;
-        gapi.client.setToken({
-          access_token: this.token,
-        });
-        this.isLoggedOn.set(true);
-        this.router.navigate(['/home'])
-      },
+      callback: async (response) => this.googleOauthInitCallback(response),
     });
   }
 
@@ -50,4 +44,20 @@ export class GoogleAuthService {
   }
 
   public loginStateSignal = linkedSignal(() => this.isLoggedOn());
+
+  private async googleOauthInitCallback(
+    response: google.accounts.oauth2.TokenResponse
+  ): Promise<void> {
+    this.token = response.access_token;
+    if (this.token !== null && this.token !== '') {
+      gapi.client.setToken({
+        access_token: this.token,
+      });
+      console.log('token set');
+    } else {
+      console.log('token empty');
+    }
+    this.isLoggedOn.set(true);
+    this.router.navigate(['/home']);
+  }
 }
