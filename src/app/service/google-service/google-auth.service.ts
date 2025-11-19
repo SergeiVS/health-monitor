@@ -28,6 +28,7 @@ export class GoogleAuthService {
   }
 
   public signIn() {
+
     if (gapi.client.getToken() === null) {
       this.googleTokenCient.requestAccessToken({ prompt: 'consent' });
     } else {

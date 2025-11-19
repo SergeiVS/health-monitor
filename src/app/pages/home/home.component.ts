@@ -19,13 +19,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     if (this.authService.loginStateSignal()) {
       if (
-        localStorage.getItem(environment.LOCALE_STORAGE_KEY) === null ||
-        localStorage.getItem(environment.LOCALE_STORAGE_KEY) === undefined
+        localStorage.getItem(environment.TABLE_TITLE_STORAGE_KEY) === null ||
+        localStorage.getItem(environment.TABLE_TITLE_STORAGE_KEY) === undefined
       ) {
         this.driveService.getWorkingFile();
       } else {
         console.log(
-          'Table id: ' + localStorage.getItem(environment.LOCALE_STORAGE_KEY)
+          'Table id: ' + localStorage.getItem(environment.TABLE_TITLE_STORAGE_KEY)
         );
       }
     } else {

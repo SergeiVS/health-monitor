@@ -9,6 +9,7 @@ import { MatButton } from '@angular/material/button';
 import { CurrentDateTimeService } from 'src/app/service/current-date-time-service';
 import { FormValidator } from 'src/app/service/form-validator';
 import { FormValues } from '../../models/form-values-model';
+import { DataAppendService } from 'src/app/service/google-service/data-append.service';
 
 @Component({
   selector: 'app-idicators-input',
@@ -22,7 +23,8 @@ export class BloodPresureInputForm implements OnInit {
   constructor(
     private fb: FormBuilder,
     private formValidator: FormValidator,
-    private dateService: CurrentDateTimeService
+    private dateService: CurrentDateTimeService,
+    private dataAppendService: DataAppendService
   ) {}
 
   currentDate = signal(this.dateService.getCurrentDate());
@@ -73,5 +75,7 @@ export class BloodPresureInputForm implements OnInit {
       dis: this.disControl?.value,
       puls: this.formControls['puls'].value,
     };
+    console.log(JSON.stringify(formValues));
+    this.dataAppendService.addNewValues(formValues);
   };
 }

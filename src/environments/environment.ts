@@ -13,7 +13,7 @@ export const environment = {
   ],
   GAPI_SCOPE:'https://www.googleapis.com/auth/drive.file',
   TABLE_NAME: 'blutdruck_werte_tabelle',
-  LOCALE_STORAGE_KEY:'blutdruckTableId'
+  TABLE_TITLE_STORAGE_KEY:'blutdruckTableId'
 };
 
 /*

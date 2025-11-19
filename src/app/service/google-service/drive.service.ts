@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 })
 export class DriveService {
   private tableTitle: string = environment.TABLE_NAME;
-  private storageKey = environment.LOCALE_STORAGE_KEY;
+  private storageKey = environment.TABLE_TITLE_STORAGE_KEY;
 
   public async getWorkingFile() {
     await gapi.client.drive.files
@@ -72,13 +72,13 @@ export class DriveService {
       });
   }
 
-  private addSheetHeaders(spredSeetId: string) {
+  private addSheetHeaders(spredSheetId: string) {
     const _values = [['date', 'time', 'sys', 'dis', 'puls']];
     try {
       gapi.client.sheets.spreadsheets.values
         .append({
           valueInputOption: 'USER_ENTERED',
-          spreadsheetId: spredSeetId,
+          spreadsheetId: spredSheetId,
           range: 'Sheet1!1:1',
           resource: {
             values: _values,
