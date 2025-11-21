@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormValues } from 'src/app/models/form-values-model';
 import { environment } from 'src/environments/environment';
+import { ModalService } from '../modal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export class DataAppendService {
   private storageKey!: string;
   private spredSheetId!: string;
 
-  constructor() {
+  constructor(private modalService: ModalService) {
     if (environment.TABLE_TITLE_STORAGE_KEY !== null) {
       this.storageKey = environment.TABLE_TITLE_STORAGE_KEY;
       const _spredSheet = localStorage.getItem(this.storageKey);
@@ -33,17 +34,27 @@ export class DataAppendService {
         },
       })
       .then(() => {
-        alert('Werte wurden gespeichert');
         this.sortTableValues();
-      }).catch((err: any) => {
+        this.modalService.openModal(
+          'Daten hinzugefügt',
+          'Die neuen Werte wurden erfolgreich hinzugefügt.'
+        );
+      })
+      .catch((err: any) => {
         console.error(err);
-        alert('Fehler beim Speichern der Tabelle');
+        this.modalService.openModal(
+          'Fehler',
+          'Beim Hinzufügen der Daten ist ein Fehler aufgetreten.'
+        );
       });
   }
 
   public sortTableValues() {
     if (!this.spredSheetId) {
-      alert('Kein Spreadsheet ausgewählt');
+      this.modalService.openModal(
+        'Fehler',
+        'Keine Tabellen-ID gefunden. Bitte stellen Sie sicher, dass Sie angemeldet sind und eine Tabelle ausgewählt haben.'
+      );
       return;
     }
 
@@ -83,10 +94,12 @@ export class DataAppendService {
           resource: { requests },
         });
       })
-      .then(() => alert('Tabelle wurde sortiert'))
       .catch((err: any) => {
         console.error(err);
-        alert('Fehler beim Sortieren der Tabelle');
+        this.modalService.openModal(
+          'Fehler',
+          'Beim Sortieren der Tabelle ist ein Fehler aufgetreten.'
+        );
       });
   }
 }

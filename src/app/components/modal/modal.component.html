@@ -1,0 +1,10 @@
+<div class="modal-container" (click)="(close)">
+  <div class="modal-backdrop" (click)="$event.stopPropagation()"></div>
+  <div class="modal-header" mat-dialog-title>
+    <h4 mat-dialog-title>{{ data.title }}</h4>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content class="modal-content">{{ data.message }}</div>
+</div>

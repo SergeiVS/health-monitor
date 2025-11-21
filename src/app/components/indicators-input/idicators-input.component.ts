@@ -10,6 +10,7 @@ import { CurrentDateTimeService } from 'src/app/service/current-date-time-servic
 import { FormValidator } from 'src/app/service/form-validator';
 import { FormValues } from '../../models/form-values-model';
 import { DataAppendService } from 'src/app/service/google-service/data-append.service';
+import { ModalService } from 'src/app/service/modal.service';
 
 @Component({
   selector: 'app-idicators-input',
@@ -75,7 +76,18 @@ export class BloodPresureInputForm implements OnInit {
       dis: this.disControl?.value,
       puls: this.formControls['puls'].value,
     };
-    console.log(JSON.stringify(formValues));
-    this.dataAppendService.addNewValues(formValues);
+
+    if (this.bloodPresureValuesForm.valid) {
+      console.log(JSON.stringify(formValues));
+      this.dataAppendService.addNewValues(formValues);
+      this.bloodPresureValuesForm.reset();
+      this.bloodPresureValuesForm.markAsPristine();
+      this.bloodPresureValuesForm.markAsUntouched();
+      this.bloodPresureValuesForm.updateValueAndValidity();
+      this.currentDate.set(this.dateService.getCurrentDate());
+      this.currentTime.set(this.dateService.getCurrentTime());
+      this.formControls['date'].setValue(this.currentDate());
+      this.formControls['time'].setValue(this.currentTime());
+    }
   };
 }

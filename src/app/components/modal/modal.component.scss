@@ -1,0 +1,42 @@
+.modal-container {
+  position: fixed;
+  bottom: 5rem;
+  left: 0;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(222, 245, 242, 0.836);
+  color: rgb(48, 50, 51);
+  z-index: 1000;
+  border-radius: 1rem;
+}
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.modal-header {
+  position: relative;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: inherit;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.modal-content {
+  position: relative;
+  width: 100%;
+  padding: 24px;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  text-align: center;
+  background-color: inherit;
+}
