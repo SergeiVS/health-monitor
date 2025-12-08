@@ -4,8 +4,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DriveService {
-  private tableTitle: string = environment.TABLE_NAME;
-  private storageKey = environment.TABLE_TITLE_STORAGE_KEY;
+  private tableTitle: string = environment.FILE_NAME;
+  private storageKey = environment.SPREADSHEET_ID_STORAGE_KEY;
+  private sheetName = environment.SHEET_NAME;
 
   public async getWorkingFile() {
     await gapi.client.drive.files
@@ -18,7 +19,7 @@ export class DriveService {
           this.createSheet();
         }
       })
-      .catch(() => console.log('shit happens'));
+      .catch(() => console.error('Error fetching file list from Google Drive'));
   }
 
   private validateResponse(
@@ -57,7 +58,7 @@ export class DriveService {
                   columnCount: 5,
                   frozenRowCount: 1,
                 },
-                title: 'sheet1',
+                title: this.sheetName,
               },
             },
           ],

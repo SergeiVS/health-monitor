@@ -6,7 +6,8 @@
   gap: 2rem;
   height: 100%;
   width: 100%;
-  margin: 1rem;
+  margin: 0;
+
 }
 
 input {
@@ -21,7 +22,11 @@ input {
   gap: 0.3rem;
   width: 100%;
 }
-
+.form-container  {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
 .input-wrapper {
   display: flex;
   flex-direction: column;
@@ -31,6 +36,7 @@ input {
 .inputs-groups-wrapper {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: center;
   gap: 0.3rem;
 }

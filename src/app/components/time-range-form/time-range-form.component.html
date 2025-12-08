@@ -1,7 +1,11 @@
-<form [formGroup]="timeRangeForm" class="form-container">
+<form
+  [formGroup]="timeRangeForm"
+  (ngSubmit)="onSubmit()"
+  class="form-container"
+>
   <div class="inputs-groups-wrapper">
     <div class="input-wrapper">
-      <label for="from">From*</label>
+      <label for="from">Ab*</label>
       <input
         id="from"
         class="input-field"
@@ -12,7 +16,7 @@
       />
     </div>
     <div class="input-wrapper">
-      <label for="to">To*</label>
+      <label for="to">Bis*</label>
       <input
         id="to"
         class="input-field"
