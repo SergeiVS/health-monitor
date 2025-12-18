@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
   imports: [ReactiveFormsModule, MatButtonModule],
 })
 export class TimeRangeFormComponent implements OnInit {
+
   constructor(
     private dateService: CurrentDateTimeService,
     private fb: FormBuilder,
@@ -34,6 +35,7 @@ export class TimeRangeFormComponent implements OnInit {
   currentDate = signal(this.dateService.getCurrentDate());
 
   ngOnInit() {
+
     this.timeRangeForm = this.fb.group(
       {
         from: [this.currentDate(), Validators.required],
@@ -71,6 +73,8 @@ export class TimeRangeFormComponent implements OnInit {
     return this.timeRangeForm.get('from');
   }
 
+  get to() {
+    return this.timeRangeForm.get('to');
   get to() {
     return this.timeRangeForm.get('to');
   }
