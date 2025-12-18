@@ -1,0 +1,31 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Datum</th>
+      <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+    </ng-container>
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef>Zeit</th>
+      <td mat-cell *matCellDef="let element">{{ element.time }}</td>
+    </ng-container>
+    <ng-container matColumnDef="sys">
+      <th mat-header-cell *matHeaderCellDef>Systolisch</th>
+      <td mat-cell *matCellDef="let element">{{ element.sys }}</td>
+    </ng-container>
+    <ng-container matColumnDef="dis">
+      <th mat-header-cell *matHeaderCellDef>Diastolisch</th>
+      <td mat-cell *matCellDef="let element">{{ element.dis }}</td>
+    </ng-container>
+    <ng-container matColumnDef="puls">
+      <th mat-header-cell *matHeaderCellDef>Puls</th>
+      <td mat-cell *matCellDef="let element">{{ element.puls }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<mat-paginator
+  [length]="dataSource.data.length"
+  [pageSize]="20"
+  [pageSizeOptions]="[10, 20, 30]"
+  showFirstLastButtons>

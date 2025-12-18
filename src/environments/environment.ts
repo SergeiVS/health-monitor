@@ -11,9 +11,11 @@ export const environment = {
     'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
     'https://sheets.googleapis.com/$discovery/rest?version=v4',
   ],
-  GAPI_SCOPE:'https://www.googleapis.com/auth/drive.file',
-  TABLE_NAME: 'blutdruck_werte_tabelle',
-  TABLE_TITLE_STORAGE_KEY:'blutdruckTableId'
+  GAPI_SCOPE: 'https://www.googleapis.com/auth/drive.file',
+  FILE_NAME: 'blutdruck_werte_tabelle',
+  SPREADSHEET_ID_STORAGE_KEY: 'blutdruckTableId',
+  SHEET_NAME: 'sheet1',
+  SHEET_ID_STORAGE_KEY: 'blutdruckSheetId',
 };
 
 /*
