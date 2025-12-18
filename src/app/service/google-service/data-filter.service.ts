@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { FormValues } from 'src/app/models/form-values-model';
 import { TimeRange } from 'src/app/models/time-range-model';
 import { environment } from 'src/environments/environment';
@@ -7,90 +7,89 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DataFilterService {
-  private storageKey!: string;
-  private spredSheetId!: string;
-  private sheetName!: string;
-  private sheetId!: string;
-  private sheetIdStorageKey!: string;
+  private _filteredData = signal<FormValues[]>([]);
+  readonly filteredData = this._filteredData.asReadonly();
+
+  private sheetName = environment.SHEET_NAME;
+  private storageKey = environment.SPREADSHEET_ID_STORAGE_KEY;
+  private spredsheetId!: string;
 
   constructor() {
-    if (environment.SPREADSHEET_ID_STORAGE_KEY !== null) {
-      this.storageKey = environment.SPREADSHEET_ID_STORAGE_KEY;
-      this.sheetName = environment.SHEET_NAME;
-      this.sheetIdStorageKey = environment.SHEET_ID_STORAGE_KEY;
-      const _spredSheet = localStorage.getItem(this.storageKey);
-      const _sheetId = localStorage.getItem(this.sheetIdStorageKey);
-      if (_spredSheet !== null) {
-        this.spredSheetId = _spredSheet;
-      }
-      if (_sheetId !== null) {
-        this.sheetId = _sheetId;
-      }
+    const storedId = localStorage.getItem(this.storageKey);
+    if (storedId) {
+      this.spredsheetId = storedId;
+    } else {
+      throw new Error('Spreadsheet ID not found in local storage');
     }
   }
 
-  public async getDataFilter(timeRange: TimeRange): Promise<FormValues[]> {
-    const formValues: FormValues[] = [];
-
+  public async loadDataOnRequest(timeRange: TimeRange): Promise<void> {
     await gapi.client.sheets.spreadsheets.values
       .get({
-        spreadsheetId: this.spredSheetId,
+        spreadsheetId: this.spredsheetId,
         range: `${this.sheetName}!A2:E`,
       })
-      .then((resp: any) => {
-        const values = resp.result.values;
-        if (values && values.length > 0) {
-          for (const row of values) {
-            if (this.validateRowValues(row)) {
-              const value: FormValues = {
-                date: row[0],
-                time: row[1],
-                sys: row[2],
-                dis: row[3],
-                puls: row[4],
-              };
-              formValues.push(value);
-            }
-          }
-        }
+      .then((response) => {
+        const rows = response.result.values;
+        const allData = this.parseRows(rows || []);
+        const filteredData = this.filterDataByTimeRange(allData, timeRange);
+        this._filteredData.set(filteredData);
       });
-    return this.filterDataByTimeRange(formValues, timeRange);
   }
 
   private filterDataByTimeRange(
     data: FormValues[],
     timeRange: TimeRange
   ): FormValues[] {
-    const fromDate = new Date(timeRange.from);
-    const toDate = new Date(timeRange.to);
-    const filteredData = data.filter((entry) => {
-      const entryDate = new Date(entry.date);
+    const fromDate = new Date(timeRange.from).getTime();
+    const toDate = new Date(timeRange.to).getTime();
+
+    return data.filter((entry) => {
+      const entryDate = new Date(entry.date).getTime();
       return entryDate >= fromDate && entryDate <= toDate;
     });
-    return filteredData;
   }
 
-  private validateRowValues(row: any[]): boolean {
+  private parseRows(rows: any[][]): FormValues[] {
+    if (rows && rows.length > 0) {
+      return rows.map((row) => {
+        if (!this.isRowValid(row)) {
+          throw new Error(`Invalid data row: ${row}`);
+        }
+        return {
+          date: row[0],
+          time: row[1],
+          sys: Number(row[2]),
+          dis: Number(row[3]),
+          puls: row[4] !== undefined ? Number(row[4]) : undefined,
+        };
+      });
+    } else {
+      return [];
+    }
+  }
+
+  private isRowValid(row: any[]): boolean {
     return (
-      row.length >= 5 &&
-      this.isValidDate(row[0]) &&
-      this.isValidTime(row[1]) &&
-      this.isNumber(row[2]) &&
-      this.isNumber(row[3]) &&
-      this.isNumber(row[4])
+      this.validateDate(row[0]) &&
+      this.validateTime(row[1]) &&
+      this.validateNumber(row[2].toString()) &&
+      this.validateNumber(row[3].toString()) &&
+      (row[4] === undefined || this.validateNumber(row[4].toString()))
     );
   }
-  isValidDate(arg: any): boolean {
-    const date = new Date(arg);
-    return date instanceof Date && !isNaN(date.valueOf());
+  private validateDate(dateString: string): boolean {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    const date = new Date(dateString);
+    return !isNaN(date.getTime()) && dateRegex.test(dateString);
   }
 
-  isValidTime(arg: any): boolean {
-    const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-    return timePattern.test(arg);
+  private validateTime(timeString: string): boolean {
+    const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    return timeRegex.test(timeString);
   }
 
-  isNumber(arg: any) {
-    return !isNaN(parseInt(arg)) && isFinite(arg);
+  private validateNumber(value: string): boolean {
+    return !isNaN(Number(value));
   }
 }
