@@ -1,7 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, linkedSignal, signal } from '@angular/core';
 import { FormValues } from 'src/app/models/form-values-model';
 import { TimeRange } from 'src/app/models/time-range-model';
 import { environment } from 'src/environments/environment';
+import { SheetStateService } from '../sheet-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,22 +12,14 @@ export class DataFilterService {
   readonly filteredData = this._filteredData.asReadonly();
 
   private sheetName = environment.SHEET_NAME;
-  private storageKey = environment.SPREADSHEET_ID_STORAGE_KEY;
-  private spredsheetId!: string;
+  private spredsheetId=linkedSignal(() => this.sheetStateService.getSpredsheetId());
 
-  constructor() {
-    const storedId = localStorage.getItem(this.storageKey);
-    if (storedId) {
-      this.spredsheetId = storedId;
-    } else {
-      throw new Error('Spreadsheet ID not found in local storage');
-    }
-  }
+  constructor(private sheetStateService: SheetStateService) {}
 
   public async loadDataOnRequest(timeRange: TimeRange): Promise<void> {
     await gapi.client.sheets.spreadsheets.values
       .get({
-        spreadsheetId: this.spredsheetId,
+        spreadsheetId: this.spredsheetId(),
         range: `${this.sheetName}!A2:E`,
       })
       .then((response) => {

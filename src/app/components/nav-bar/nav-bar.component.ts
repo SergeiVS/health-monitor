@@ -16,9 +16,9 @@ import { ModalService } from 'src/app/service/modal.service';
 export class NavBarComponent {
   buttonTitle = linkedSignal(() => {
     if (!this.googleAuthService.loginStateSignal()) {
-      return 'Login';
+      return 'Einloggen';
     } else {
-      return 'Logout';
+      return 'Ausloggen';
     }
   });
 

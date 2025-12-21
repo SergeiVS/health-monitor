@@ -1,0 +1,59 @@
+import { Injectable, signal } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SheetStateService {
+  private sheetId = signal<string>('');
+  private spredsheetId = signal<string>('');
+
+  constructor() {
+    this.loadSheetIdFromStorage();
+    this.loadSpreadsheetIdFromStorage();
+  }
+
+  public getSheetId(): string {
+    return this.sheetId();
+  }
+
+  public getSpredsheetId(): string {
+    return this.spredsheetId();
+  }
+
+  public setSheetId(sheetId: string) {
+    this.sheetId.set(sheetId);
+    localStorage.setItem(environment.SHEET_ID_STORAGE_KEY, sheetId);
+  }
+
+  public clearSheetId() {
+    this.sheetId.set('');
+    localStorage.removeItem(environment.SHEET_ID_STORAGE_KEY);
+  }
+
+  public setSpredsheetId(spredsheetId: string) {
+    this.spredsheetId.set(spredsheetId);
+    localStorage.setItem(environment.SPREADSHEET_ID_STORAGE_KEY, spredsheetId);
+  }
+
+  public clearSpredsheetId() {
+    this.spredsheetId.set('');
+    localStorage.removeItem(environment.SPREADSHEET_ID_STORAGE_KEY);
+  }
+
+  private loadSpreadsheetIdFromStorage() {
+    const storedId = localStorage.getItem(
+      environment.SPREADSHEET_ID_STORAGE_KEY
+    );
+    if (storedId) {
+      this.spredsheetId.set(storedId);
+    }
+  }
+
+  private loadSheetIdFromStorage() {
+    const storedId = localStorage.getItem(environment.SHEET_ID_STORAGE_KEY);
+    if (storedId) {
+      this.sheetId.set(storedId);
+    }
+  }
+}

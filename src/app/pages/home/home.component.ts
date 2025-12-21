@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { BloodPresureInputForm } from '../../components/indicators-input/idicators-input.component';
 import { GoogleAuthService } from 'src/app/service/google-service/google-auth.service';
 import { DriveService } from 'src/app/service/google-service/drive.service';
-import { environment } from 'src/environments/environment';
+import { SheetStateService } from 'src/app/service/sheet-state.service';
 
 @Component({
   selector: 'app-home',
@@ -13,25 +13,17 @@ import { environment } from 'src/environments/environment';
 export class HomeComponent implements OnInit {
   constructor(
     private authService: GoogleAuthService,
-    private driveService: DriveService
+    private driveService: DriveService,
+    private sheetStateService: SheetStateService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.authService.loginStateSignal()) {
-      if (
-        localStorage.getItem(environment.SPREADSHEET_ID_STORAGE_KEY) === null ||
-        localStorage.getItem(environment.SPREADSHEET_ID_STORAGE_KEY) === undefined
-      ) {
-        this.driveService.getWorkingFile();
-      } else {
-        console.log(
-          'Table id: ' + localStorage.getItem(environment.SPREADSHEET_ID_STORAGE_KEY)
-        );
+      if (this.sheetStateService.getSpredsheetId() === '') {
+        await this.driveService.getWorkingFile();
       }
-    } else {
-      console.log('You are logged on: ' + this.authService.loginStateSignal());
-    }
+    } 
   }
 
-  title = signal(`Home page`);
+  title = signal(`Angabe des Blutdrucks Wertes`);
 }

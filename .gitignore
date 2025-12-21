@@ -45,6 +45,7 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
+.android/*
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -70,5 +71,6 @@ testem.log
 Thumbs.db
 
 # Enviroment
-*/.src/environments/environment.ts
-*/.src/environments/environment.prod.ts
+.src/environments/environment.ts
+.src/environments/environment.prod.ts
+.src/environments/environment.prod.ts

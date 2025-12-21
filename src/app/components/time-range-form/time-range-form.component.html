@@ -41,13 +41,13 @@
 @if(!timeRangeForm.valid){
 <ul class="errors-container">
   @if(from?.hasError('required')){
-  <li>From field is required</li>
+  <li>Feld ist Pflichtfeld</li>
   } @if(to?.hasError('required')){
-  <li>To field is required</li>
+  <li>Feld ist Pflichtfeld</li>
   } @if(timeRangeForm.hasError('dateNotValid')){
-  <li>To date is not valid</li>
+  <li>Bis Datum ist nicht gültig</li>
   } @if(timeRangeForm.hasError('formIsAfterTo')){
-  <li>From date must be before To</li>
+  <li>Ab Datum muss vor Bis liegen</li>
   }
 </ul>
 }

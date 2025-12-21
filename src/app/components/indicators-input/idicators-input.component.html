@@ -40,13 +40,13 @@
         />
       </div>
       <div class="input-wrapper">
-        <label for="dis">Dis*</label>
+        <label for="dis">Dias*</label>
         <input
           id="dis"
           class="input-field"
           type="number"
           formControlName="dis"
-          placeholder="DIS"
+          placeholder="DIAS"
         />
       </div>
       <div class="input-wrapper">
@@ -69,6 +69,7 @@
   >
     Insert Values
   </button>
+  <p>*- Pflichtfelder</p>
 </form>
 @if(!bloodPresureValuesForm.valid && bloodPresureValuesForm.touched &&
 bloodPresureValuesForm.dirty){
@@ -76,13 +77,13 @@ bloodPresureValuesForm.dirty){
 <div class="errors-container">
   <ul>
     @if(sysControl?.hasError('required')){
-    <li>Sys is required</li>
+    <li>Sys Feld ist Pflichtfeld</li>
     } @if(sysControl?.hasError('max') || sysControl?.hasError('min')){
     <li>Sys value is not plusible</li>
     } @if(disControl?.hasError('required')){
-    <li>Dis is required</li>
+    <li>Dias Feld ist Pflichtfeld</li>
     } @if(disControl?.hasError('max') || disControl?.hasError('min')){
-    <li>Dis value is not plusible</li>
+    <li>Dias. value is not plusible</li>
     } @if(bloodPresureValuesForm.hasError('valuesNotValid')){
     <li>Sys have to be over dis</li>
     }@if(bloodPresureValuesForm.hasError('dateNotValid')){
