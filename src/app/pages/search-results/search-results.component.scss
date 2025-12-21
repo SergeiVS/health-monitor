@@ -1,3 +1,12 @@
 h3 {
   justify-self: center;
 }
+.nav-buttons-container {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}

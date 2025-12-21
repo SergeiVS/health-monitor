@@ -2,3 +2,11 @@
   Blutdruck Werte
 </h3>
 <app-resaults-table [dataSource]="data()"></app-resaults-table>
+<div class="nav-buttons-container">
+  <button mat-icon-button (click)="navigateBack()">
+    <mat-icon>undo</mat-icon>
+  </button>
+  <button mat-icon-button (click)="navigateHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+</div>
