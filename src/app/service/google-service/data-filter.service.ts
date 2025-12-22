@@ -1,8 +1,9 @@
 import { Injectable, linkedSignal, signal } from '@angular/core';
 import { FormValues } from 'src/app/models/form-values-model';
 import { TimeRange } from 'src/app/models/time-range-model';
-import { environment } from 'src/environments/environment';
 import { SheetStateService } from '../sheet-state.service';
+import { ModalService } from '../modal.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,22 +13,40 @@ export class DataFilterService {
   readonly filteredData = this._filteredData.asReadonly();
 
   private sheetName = environment.SHEET_NAME;
-  private spredsheetId=linkedSignal(() => this.sheetStateService.getSpredsheetId());
+  private spredsheetId = linkedSignal(() =>
+    this.sheetStateService.getSpredsheetId()
+  );
 
-  constructor(private sheetStateService: SheetStateService) {}
+  constructor(
+    private sheetStateService: SheetStateService,
+    private modalService: ModalService
+  ) {}
 
   public async loadDataOnRequest(timeRange: TimeRange): Promise<void> {
-    await gapi.client.sheets.spreadsheets.values
-      .get({
+    try {
+      const response: FormValues[] = await this.fetchAndFilterData();
+      const filteredData = this.filterDataByTimeRange(response, timeRange);
+      this._filteredData.set(filteredData);
+    } catch (error) {
+      this.modalService.openModal('Fehler', `Fehler beim Laden der Daten:`);
+      throw new Error(`Error loading data: ${error}`);
+    }
+  }
+
+  private async fetchAndFilterData(): Promise<FormValues[]> {
+    let allData: FormValues[] = [];
+    try {
+      const response = await gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: this.spredsheetId(),
         range: `${this.sheetName}!A2:E`,
-      })
-      .then((response) => {
-        const rows = response.result.values;
-        const allData = this.parseRows(rows || []);
-        const filteredData = this.filterDataByTimeRange(allData, timeRange);
-        this._filteredData.set(filteredData);
       });
+
+      const rows = response.result.values;
+      allData = this.parseRows(rows || []);
+    } catch (error) {
+      console.error('Error fetching data from Google Sheets:', error);
+    }
+    return allData;
   }
 
   private filterDataByTimeRange(
