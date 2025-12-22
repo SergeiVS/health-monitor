@@ -16,6 +16,23 @@ export class DataAppendService {
     Number(this.sheetStateService.getSheetId())
   );
 
+  private readonly sortingRequest = [
+    {
+      sortRange: {
+        range: {
+          sheetId: this.sheetId(),
+          startRowIndex: 1,
+          startColumnIndex: 0,
+          endColumnIndex: 5,
+        },
+        sortSpecs: [
+          { dimensionIndex: 0, sortOrder: 'ASCENDING' }, // column A (date)
+          { dimensionIndex: 1, sortOrder: 'ASCENDING' },
+        ],
+      },
+    },
+  ];
+
   constructor(
     private modalService: ModalService,
     private sheetStateService: SheetStateService
@@ -23,9 +40,9 @@ export class DataAppendService {
 
   public async addNewValues({ date, time, sys, dis, puls }: FormValues) {
     const _values = [[date, time, sys, dis, puls]];
-    console.log('Spredsheet ID:', this.spredsheetId);
-    await gapi.client.sheets.spreadsheets.values
-      .append({
+
+    try {
+      await gapi.client.sheets.spreadsheets.values.append({
         valueInputOption: 'USER_ENTERED',
         spreadsheetId: this.spredsheetId(),
         insertDataOption: 'INSERT_ROWS',
@@ -33,61 +50,39 @@ export class DataAppendService {
         resource: {
           values: _values,
         },
-      })
-      .then(() => {
-        this.sortTableValues();
-        this.modalService.openModal(
-          'Daten hinzugefügt',
-          'Die neuen Werte wurden erfolgreich hinzugefügt.'
-        );
-      })
-      .catch((err: any) => {
-        console.error(err);
-        this.modalService.openModal(
-          'Fehler',
-          'Beim Hinzufügen der Daten ist ein Fehler aufgetreten.'
-        );
       });
+
+      await this.sortSheetValues();
+
+      this.modalService.openModal(
+        'Daten hinzugefügt',
+        'Die neuen Werte wurden erfolgreich hinzugefügt.'
+      );
+    } catch (err) {
+      console.error('Error adding new values:', err);
+      this.modalService.openModal(
+        'Fehler',
+        'Beim Hinzufügen der neuen Werte ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.'
+      );
+    }
   }
 
-  public async sortTableValues() {
+  public async sortSheetValues() {
     if (!this.spredsheetId()) {
       this.modalService.openModal(
         'Fehler',
-        'Keine Tabellen-ID gefunden. Bitte stellen Sie sicher, dass Sie angemeldet sind und eine Tabelle ausgewählt haben.'
+        'Die Spreadsheet-ID ist nicht gesetzt. Bitte konfigurieren Sie die Anwendung korrekt.'
       );
-      return;
+      throw new Error('Spreadsheet ID is not set.');
     }
 
-    const requests: any[] = [
-      {
-        sortRange: {
-          range: {
-            sheetId: this.sheetId(),
-            // start at row index 1 to keep header row (A1) intact (0-based)
-            startRowIndex: 1,
-            // include columns A..E (adjust endColumnIndex if you have more columns)
-            startColumnIndex: 0,
-            endColumnIndex: 5,
-          },
-          sortSpecs: [
-            { dimensionIndex: 0, sortOrder: 'ASCENDING' }, // column A (date)
-            { dimensionIndex: 1, sortOrder: 'ASCENDING' }, // column B (time)
-          ],
-        },
-      },
-    ];
-
-    await gapi.client.sheets.spreadsheets
-      .batchUpdate({
+    try {
+      await gapi.client.sheets.spreadsheets.batchUpdate({
         spreadsheetId: this.spredsheetId(),
-        resource: { requests },
-      })
-      .then((response: any) => {
-        console.log('Table values sorted successfully:', response.result);
-      })
-      .catch((err: any) => {
-        console.error(err);
+        resource: { requests: this.sortingRequest },
       });
+    } catch (err) {
+      console.error('Error sorting table values:', err);
+    }
   }
 }
