@@ -20,6 +20,13 @@ export class GoogleAuthService {
     private router: Router,
     private sheetStateService: SheetStateService
   ) {
+    this.initGoogleClient();
+    this.loadTokenClient();
+    // Check for stored token on initialization
+    this.restoreStoredSession();
+  }
+
+  private async initGoogleClient() {
     gapi.load('client', async () => {
       await gapi.client.init({
         clientId: environment.GAPI_CLIENT_ID,
@@ -27,18 +34,13 @@ export class GoogleAuthService {
         discoveryDocs: environment.GAPI_DISCOVERY_DOCS,
       });
     });
-
-    this.loadTokenClient();
-
-    // Check for stored token on initialization
-    this.restoreStoredSession();
   }
 
   private loadTokenClient() {
     this.googleTokenCient = google.accounts.oauth2.initTokenClient({
       client_id: environment.GAPI_CLIENT_ID,
       scope: environment.GAPI_SCOPE,
-      callback: async (response) => this.googleOauthInitCallback(response),
+      callback: (response) => this.googleOauthInitCallback(response),
     });
   }
 
