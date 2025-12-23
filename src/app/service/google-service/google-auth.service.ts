@@ -1,4 +1,4 @@
-import { Injectable, linkedSignal, signal } from '@angular/core';
+import { inject, Injectable, linkedSignal, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { SheetStateService } from '../sheet-state.service';
@@ -7,6 +7,9 @@ import { SheetStateService } from '../sheet-state.service';
   providedIn: 'root',
 })
 export class GoogleAuthService {
+  private router = inject(Router);
+  private sheetStateService = inject(SheetStateService);
+
   private googleTokenCient!: google.accounts.oauth2.TokenClient;
   private token: string = '';
   private isLoggedOn = signal(false);
@@ -16,10 +19,7 @@ export class GoogleAuthService {
   private readonly remember_me_key = environment.REMEMBER_ME_KEY;
   private readonly token_expire_key = environment.TOKEN_EXPIRE_KEY;
 
-  constructor(
-    private router: Router,
-    private sheetStateService: SheetStateService
-  ) {
+  constructor() {
     this.initGoogleClient();
     this.loadTokenClient();
     // Check for stored token on initialization

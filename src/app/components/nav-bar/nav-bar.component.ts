@@ -1,4 +1,4 @@
-import { Component, linkedSignal } from '@angular/core';
+import { Component, inject, linkedSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuComponent } from '../menu/menu.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +14,10 @@ import { ModalService } from 'src/app/service/modal.service';
   imports: [CommonModule, MenuComponent, MatIconModule, MatAnchor],
 })
 export class NavBarComponent {
+  private googleAuthService = inject(GoogleAuthService);
+  private router = inject(Router);
+  private modalService = inject(ModalService);
+
   buttonTitle = linkedSignal(() => {
     if (!this.googleAuthService.loginStateSignal()) {
       return 'Einloggen';
@@ -30,11 +34,7 @@ export class NavBarComponent {
     }
   });
 
-  constructor(
-    private googleAuthService: GoogleAuthService,
-    private router: Router,
-    private modalService: ModalService
-  ) {}
+  constructor() {}
 
   onLogIn() {
     let isError = false;

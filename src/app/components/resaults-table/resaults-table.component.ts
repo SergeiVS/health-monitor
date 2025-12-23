@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { FormValues } from 'src/app/models/form-values-model';
-import { MatPaginator } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,7 +11,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
 })
 export class ResaultsTableComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() dataSource!: FormValues[];
   displayedColumns: string[] = ['date', 'time', 'sys', 'dis', 'puls'];
 

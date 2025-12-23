@@ -1,4 +1,4 @@
-import { Injectable, linkedSignal } from '@angular/core';
+import { inject, Injectable, linkedSignal } from '@angular/core';
 import { FormValues } from 'src/app/models/form-values-model';
 import { environment } from 'src/environments/environment';
 import { ModalService } from '../modal.service';
@@ -8,6 +8,9 @@ import { SheetStateService } from '../sheet-state.service';
   providedIn: 'root',
 })
 export class DataAppendService {
+  private modalService = inject(ModalService);
+  private sheetStateService = inject(SheetStateService);
+
   private sheetName = environment.SHEET_NAME;
   private spredsheetId = linkedSignal(() =>
     this.sheetStateService.getSpredsheetId()
@@ -33,10 +36,7 @@ export class DataAppendService {
     },
   ];
 
-  constructor(
-    private modalService: ModalService,
-    private sheetStateService: SheetStateService
-  ) {}
+  constructor() {}
 
   public async addNewValues({ date, time, sys, dis, puls }: FormValues) {
     const _values = [[date, time, sys, dis, puls]];

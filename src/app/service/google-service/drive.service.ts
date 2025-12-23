@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { SheetStateService } from '../sheet-state.service';
 @Injectable({
   providedIn: 'root',
 })
 export class DriveService {
+  private sheetStateService = inject(SheetStateService);
+
   private spredsheetTitle: string = environment.FILE_NAME;
   private sheetName = environment.SHEET_NAME;
 
-  constructor(private sheetStateService: SheetStateService) {}
+  constructor() {}
 
   public async getWorkingFile() {
     try {
@@ -30,11 +32,11 @@ export class DriveService {
     if (file === undefined) {
       this.createNewSpredsheet();
     } else {
-      this.setFileSheetsId(file);
+      this.setFileSheetsIds(file);
     }
   }
 
-  private async setFileSheetsId(file: gapi.client.drive.File): Promise<void> {
+  private async setFileSheetsIds(file: gapi.client.drive.File): Promise<void> {
     const spredsheetId = file.id!;
     if (!spredsheetId) {
       throw new Error('Spreadsheet ID is undefined');

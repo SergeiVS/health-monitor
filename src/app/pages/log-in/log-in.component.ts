@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuthService } from 'src/app/service/google-service/google-auth.service';
 
@@ -9,11 +9,10 @@ import { GoogleAuthService } from 'src/app/service/google-service/google-auth.se
 })
 export class LogInComponent implements OnInit {
   rememberMe = signal(false);
+  private googleAuthService = inject(GoogleAuthService);
+  private router = inject(Router);
 
-  constructor(
-    private googleAuthService: GoogleAuthService,
-    private router: Router
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     // Check if user is already logged in via remember me

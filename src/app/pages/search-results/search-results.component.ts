@@ -1,4 +1,4 @@
-import { Component, linkedSignal, OnInit } from '@angular/core';
+import { Component, inject, linkedSignal, OnInit } from '@angular/core';
 import { ResaultsTableComponent } from 'src/app/components/resaults-table/resaults-table.component';
 import { DataFilterService } from 'src/app/service/google-service/data-filter.service';
 import { ModalService } from 'src/app/service/modal.service';
@@ -16,11 +16,11 @@ import { Router } from '@angular/router';
 export class SearchResultsComponent implements OnInit {
   public data = linkedSignal(() => this.filterService.filteredData());
 
-  constructor(
-    private filterService: DataFilterService,
-    private modalService: ModalService,
-    private router: Router
-  ) {}
+  private filterService = inject(DataFilterService);
+  private modalService = inject(ModalService);
+  private router = inject(Router);
+
+  constructor() {}
 
   ngOnInit() {
     // Check if data is empty and show modal if true

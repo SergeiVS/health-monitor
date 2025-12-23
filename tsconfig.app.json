@@ -10,6 +10,7 @@
       "gapi.client",
       "gapi.client.drive-v3",
       "gapi.client.sheets-v4",
+      "@angular/localize"
     ]
   },
   "files": ["src/main.ts", "src/polyfills.ts"],

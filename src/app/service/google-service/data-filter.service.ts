@@ -1,4 +1,4 @@
-import { Injectable, linkedSignal, signal } from '@angular/core';
+import { inject, Injectable, linkedSignal, signal } from '@angular/core';
 import { FormValues } from 'src/app/models/form-values-model';
 import { TimeRange } from 'src/app/models/time-range-model';
 import { SheetStateService } from '../sheet-state.service';
@@ -9,6 +9,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DataFilterService {
+  private sheetStateService = inject(SheetStateService);
+  private modalService = inject(ModalService);
+
   private _filteredData = signal<FormValues[]>([]);
   readonly filteredData = this._filteredData.asReadonly();
 
@@ -17,10 +20,7 @@ export class DataFilterService {
     this.sheetStateService.getSpredsheetId()
   );
 
-  constructor(
-    private sheetStateService: SheetStateService,
-    private modalService: ModalService
-  ) {}
+  constructor() {}
 
   public async loadDataOnRequest(timeRange: TimeRange): Promise<void> {
     try {
@@ -90,6 +90,7 @@ export class DataFilterService {
       (row[4] === undefined || this.validateNumber(row[4].toString()))
     );
   }
+
   private validateDate(dateString: string): boolean {
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     const date = new Date(dateString);

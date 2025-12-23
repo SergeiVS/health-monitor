@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormGroup,
   ReactiveFormsModule,
@@ -20,15 +20,15 @@ import { DataAppendService } from 'src/app/service/google-service/data-append.se
 export class BloodPresureInputForm implements OnInit {
   bloodPresureValuesForm!: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private formValidator: FormValidator,
-    private dateService: CurrentDateTimeService,
-    private dataAppendService: DataAppendService
-  ) {}
+  private fb = inject(FormBuilder);
+  private formValidator = inject(FormValidator);
+  private dateService = inject(CurrentDateTimeService);
+  private dataAppendService = inject(DataAppendService);
 
   currentDate = signal(this.dateService.getCurrentDate());
   currentTime = signal(this.dateService.getCurrentTime());
+
+  constructor() {}
 
   ngOnInit() {
     this.bloodPresureValuesForm = this.fb.group(
