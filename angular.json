@@ -11,6 +11,24 @@
           "standalone": true
         }
       },
+      "i18n": {
+        "sourceLocale": {
+          "code": "en-US",
+          "baseHref": "/en/"
+        },
+        "locales": {
+          "en":{
+            "translation": "src/locale/messages.xlf"
+          },
+          "de": {
+            "translation": "src/locale/messages.de.xlf"
+          },
+          "ru": {
+            "translation": "src/locale/messages.ru.xlf",
+            "baseHref": "/ru/"
+          }
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -18,15 +36,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "localize": true,
+            "i18nMissingTranslation": "error",
             "outputPath": {
               "base": "www",
               "browser": ""
             },
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["src/polyfills.ts", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -62,11 +79,21 @@
               ],
               "outputHashing": "all"
             },
+
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "en": {
+              "localize": ["en"]
+            },
+            "de": {
+              "localize": ["de"]
+            },
+            "ru": {
+              "localize": ["ru"]
             },
             "ci": {
               "progress": false
@@ -77,6 +104,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+            "en": {
+              "buildTarget": "app:build:development,en"
+            },
+            "de": {
+              "buildTarget": "app:build:development,de"
+            },
+            "ru": {
+              "buildTarget": "app:build:development,ru"
+            },
             "production": {
               "buildTarget": "app:build:production"
             },
@@ -96,10 +132,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": [
-              "src/polyfills.ts",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["src/polyfills.ts", "@angular/localize/init"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
@@ -130,9 +163,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@ionic/angular-toolkit"
-    ],
+    "schematicCollections": ["@ionic/angular-toolkit"],
     "analytics": "7c0c84d5-53b2-40c5-96d4-5a3bc2c7fdb7"
   },
   "schematics": {
