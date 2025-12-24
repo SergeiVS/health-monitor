@@ -24,6 +24,4 @@ private sheetStateService = inject(SheetStateService);
       }
     }
   }
-
-  title = signal(`Angabe des Blutdrucks Wertes`);
 }

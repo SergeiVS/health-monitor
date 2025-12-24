@@ -140,7 +140,7 @@ export class DriveService {
         },
       });
     } catch (err) {
-      console.error(err);
+      console.error('Error by adding sheet headers:', err);
     }
   }
 }

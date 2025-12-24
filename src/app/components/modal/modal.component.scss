@@ -48,4 +48,9 @@ button {
   display: flex;
   justify-content: center;
   align-content: center;
+  width: 32px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }

@@ -3,5 +3,5 @@ export interface FormValues {
   time: string;
   sys: number;
   dis: number;
-  puls?: number ;
+  pulse?: number ;
 }

@@ -5,7 +5,7 @@
 >
   <div class="inputs-groups-wrapper">
     <div class="input-wrapper">
-      <label for="from">Ab*</label>
+      <label for="from" i18n="@@from">From*</label>
       <input
         id="from"
         class="input-field"
@@ -16,7 +16,7 @@
       />
     </div>
     <div class="input-wrapper">
-      <label for="to">Bis*</label>
+      <label for="to" i18n="@@to">To*</label>
       <input
         id="to"
         class="input-field"
@@ -28,6 +28,7 @@
     </div>
   </div>
   <button
+    i18n="@@search"
     class="submit-button"
     matButton="filled"
     type="submit"
@@ -36,18 +37,19 @@
   >
     Search
   </button>
+  <p i18n="@@required">*- Required</p>
 </form>
 
 @if(!timeRangeForm.valid){
 <ul class="errors-container">
   @if(from?.hasError('required')){
-  <li>Feld ist Pflichtfeld</li>
+  <li i18n="@@fromIsRequired">From field is required</li>
   } @if(to?.hasError('required')){
-  <li>Feld ist Pflichtfeld</li>
+  <li i18n="@@toIsRequired">To field is required</li>
   } @if(timeRangeForm.hasError('dateNotValid')){
-  <li>Bis Datum ist nicht gültig</li>
+  <li i18n="@@dateNotValid">Date is not valid</li>
   } @if(timeRangeForm.hasError('formIsAfterTo')){
-  <li>Ab Datum muss vor Bis liegen</li>
+  <li i18n="@@formIsAfterTo">From date must be before To date</li>
   }
 </ul>
 }

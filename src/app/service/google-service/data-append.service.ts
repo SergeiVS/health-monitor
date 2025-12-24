@@ -38,7 +38,7 @@ export class DataAppendService {
 
   constructor() {}
 
-  public async addNewValues({ date, time, sys, dis, puls }: FormValues) {
+  public async addNewValues({ date, time, sys, dis, pulse: puls }: FormValues) {
     const _values = [[date, time, sys, dis, puls]];
 
     try {
@@ -55,14 +55,14 @@ export class DataAppendService {
       await this.sortSheetValues();
 
       this.modalService.openModal(
-        'Daten hinzugefügt',
-        'Die neuen Werte wurden erfolgreich hinzugefügt.'
+        $localize`:success|@@success:Success`,
+        $localize`:success|@@valuesAddedSuccessfully:Values added successfully.`
       );
     } catch (err) {
       console.error('Error adding new values:', err);
       this.modalService.openModal(
-        'Fehler',
-        'Beim Hinzufügen der neuen Werte ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.'
+        $localize`:error|@@error:Error`,
+        $localize`:error|@@errorAddingValues:An error occurred while adding the new values. Please try again.`
       );
     }
   }
@@ -70,8 +70,8 @@ export class DataAppendService {
   public async sortSheetValues() {
     if (!this.spredsheetId()) {
       this.modalService.openModal(
-        'Fehler',
-        'Die Spreadsheet-ID ist nicht gesetzt. Bitte konfigurieren Sie die Anwendung korrekt.'
+        $localize`:error|@@error:Error`,
+        $localize`:error|@@spreadsheetIdNotSet:Spreadsheet ID is not set. Please configure the application correctly.`
       );
       throw new Error('Spreadsheet ID is not set.');
     }

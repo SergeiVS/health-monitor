@@ -28,7 +28,10 @@ export class DataFilterService {
       const filteredData = this.filterDataByTimeRange(response, timeRange);
       this._filteredData.set(filteredData);
     } catch (error) {
-      this.modalService.openModal('Fehler', `Fehler beim Laden der Daten:`);
+      this.modalService.openModal(
+        $localize`:error|@@error:Error`,
+        $localize`:error|@@errorLoadingData:An error occurred while loading data. Please try again.`
+      );
       throw new Error(`Error loading data: ${error}`);
     }
   }

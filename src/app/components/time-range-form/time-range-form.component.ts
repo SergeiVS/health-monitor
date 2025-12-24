@@ -52,15 +52,11 @@ export class TimeRangeFormComponent implements OnInit {
         to: this.to?.value,
       };
       await this.dataFilter.loadDataOnRequest(timeRange);
-      console.log(
-        'Daten wurden gefiltert und geladen:',
-        this.dataFilter.filteredData()
-      );
       this.router.navigate(['statistics/results']);
     } else {
       this.modalService.openModal(
-        'Falsche Eingabe',
-        'Bitte überprüfen Sie Ihre Eingaben im Formular.'
+        $localize`:error|@@error:Error`,
+        $localize`:error|@@invalidForm:The form is invalid. Please check your input.`
       );
     }
     this.timeRangeForm.reset({

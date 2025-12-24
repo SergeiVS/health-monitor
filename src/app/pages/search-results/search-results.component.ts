@@ -26,8 +26,8 @@ export class SearchResultsComponent implements OnInit {
     // Check if data is empty and show modal if true
     if (this.data().length === 0) {
       this.modalService.openModal(
-        'Keine Werte gefunden',
-        'Für gegebenen Zeitraum werden keine Werte gespeichert'
+        $localize`:warning|@@warning:Warning`,
+        $localize`:warning|@@noValuesFound:No values found for the specified date range.`,
       );
     }
   }

@@ -6,7 +6,7 @@
   <div class="inputs-container">
     <div class="inputs-groups-wrapper">
       <div class="input-wrapper">
-        <label for="date">Date*</label>
+        <p><label for="date" i18n="@@date">Date</label><span>*</span></p>
         <input
           id="date"
           class="input-field"
@@ -17,7 +17,7 @@
         />
       </div>
       <div class="input-wrapper">
-        <label for="time">Time*</label>
+        <p><label for="time" i18n="@@time">Time</label> <span>*</span></p>
         <input
           id="time"
           class="input-field"
@@ -30,38 +30,42 @@
     </div>
     <div class="inputs-groups-wrapper">
       <div class="input-wrapper">
-        <label for="sys">Sys*</label>
+        <p><label for="sys" i18n="@@sys">Sys.</label><span>*</span></p>
         <input
+          i18n-placeholder="@@systonic"
           id="sys"
           class="input-field"
           type="number"
           formControlName="sys"
-          placeholder="SYS"
+          placeholder="Systonic"
         />
       </div>
       <div class="input-wrapper">
-        <label for="dis">Dias*</label>
+        <p><label for="dis" i18n="@@dis">Dias.</label><span>*</span></p>
         <input
+          i18n-placeholder="@@diastonic"
           id="dis"
           class="input-field"
           type="number"
           formControlName="dis"
-          placeholder="DIAS"
+          placeholder="Diastonic"
         />
       </div>
       <div class="input-wrapper">
-        <label for="puls">Puls</label>
+        <p><label for="pulse" i18n="@@pulse">Pulse</label></p>
         <input
-          id="puls"
+          i18n-placeholder="@@pulse"
+          id="pulse"
           class="input-field"
           type="number"
-          formControlName="puls"
-          placeholder="Puls"
+          formControlName="pulse"
+          placeholder="Pulse"
         />
       </div>
     </div>
   </div>
   <button
+    i18n="@@insertValues"
     matButton="filled"
     type="submit"
     (submit)="onSubmit()"
@@ -69,7 +73,7 @@
   >
     Insert Values
   </button>
-  <p>*- Pflichtfelder</p>
+  <p i18n="@@required">*- Required</p>
 </form>
 @if(!bloodPresureValuesForm.valid && bloodPresureValuesForm.touched &&
 bloodPresureValuesForm.dirty){
@@ -77,17 +81,17 @@ bloodPresureValuesForm.dirty){
 <div class="errors-container">
   <ul>
     @if(sysControl?.hasError('required')){
-    <li>Sys Feld ist Pflichtfeld</li>
+    <li i18n="@@sysIsRequired">Sys field is required</li>
     } @if(sysControl?.hasError('max') || sysControl?.hasError('min')){
-    <li>Sys value is not plusible</li>
+    <li i18n="@@sysValueNotPlausable">Sys value is not plausable</li>
     } @if(disControl?.hasError('required')){
-    <li>Dias Feld ist Pflichtfeld</li>
+    <li i18n="@@diasIsRequired">Dias field is required</li>
     } @if(disControl?.hasError('max') || disControl?.hasError('min')){
-    <li>Dias. value is not plusible</li>
+    <li i18n="@@diasValueNotPlausable">Dias. value is not plausable</li>
     } @if(bloodPresureValuesForm.hasError('valuesNotValid')){
-    <li>Sys have to be over dis</li>
+    <li i18n="@@sysHaveToBeOverDis">Sys have to be over dis</li>
     }@if(bloodPresureValuesForm.hasError('dateNotValid')){
-    <li>Inserted date and time is in the future</li>
+    <li i18n="@@dateIsInTheFuture">Inserted date and time is in the future</li>
     }
   </ul>
 </div>

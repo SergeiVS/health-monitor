@@ -20,17 +20,17 @@ export class NavBarComponent {
 
   buttonTitle = linkedSignal(() => {
     if (!this.googleAuthService.loginStateSignal()) {
-      return 'Einloggen';
+      return $localize`:login|@@login:Login`;
     } else {
-      return 'Ausloggen';
+      return $localize`:logout|@@logout:Logout`;
     }
   });
 
   iconName = linkedSignal(() => {
     if (!this.googleAuthService.loginStateSignal()) {
-      return 'login';
+      return `login`;
     } else {
-      return 'logout';
+      return `logout`;
     }
   });
 
@@ -42,13 +42,19 @@ export class NavBarComponent {
       this.googleAuthService.signIn();
     } catch (err) {
       isError = true;
-      this.modalService.openModal('Login Fehler', 'Fehler beim einloggen.');
+      this.modalService.openModal(
+        $localize`:error|@@error:Error`,
+        $localize`:error|@@errorLogin:Error during sign in`
+      );
     }
   }
 
   onLogOut() {
     this.googleAuthService.signOut();
-    this.modalService.openModal('Logout Erfolgreich', 'Sie sind ausgeloggt.');
+    this.modalService.openModal(
+      $localize`:success|@@success:Success`,
+      $localize`:success|@@successLogin:You have been logged out.`
+    );
     this.router.navigate(['/login'], { state: { reload: false } });
   }
 

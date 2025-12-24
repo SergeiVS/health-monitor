@@ -43,7 +43,7 @@ export class BloodPresureInputForm implements OnInit {
           '',
           [Validators.required, Validators.max(250), Validators.min(40)],
         ],
-        puls: [
+        pulse: [
           '',
           [Validators.required, Validators.max(200), Validators.min(20)],
         ],
@@ -73,7 +73,7 @@ export class BloodPresureInputForm implements OnInit {
       time: this.formControls['time'].value,
       sys: this.sysControl?.value,
       dis: this.disControl?.value,
-      puls: this.formControls['puls'].value,
+      pulse: this.formControls['pulse'].value,
     };
 
     if (this.bloodPresureValuesForm.valid) {

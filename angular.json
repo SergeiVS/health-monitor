@@ -18,13 +18,13 @@
         },
         "locales": {
           "en":{
-            "translation": "src/locale/messages.xlf"
+            "translation": "src/locale/messages.json"
           },
           "de": {
-            "translation": "src/locale/messages.de.xlf"
+            "translation": "src/locale/messages.de.json"
           },
           "ru": {
-            "translation": "src/locale/messages.ru.xlf",
+            "translation": "src/locale/messages.ru.json",
             "baseHref": "/ru/"
           }
         }

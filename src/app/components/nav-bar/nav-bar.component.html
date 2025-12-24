@@ -4,8 +4,8 @@
       src="../../../assets/icon/blood_pressure_24dp_BB271A_FILL0_wght400_GRAD0_opsz24.svg"
     />
   </div>
-  <button matButton="" class="sign-button" (click)="onClick()">
-    <span>{{ buttonTitle() }}</span
+  <button matButton class="sign-button" (click)="onClick()">
+    <span i18n="@@buttonTitle">{{ buttonTitle() }}</span
     ><mat-icon>{{ iconName() }}</mat-icon>
   </button>
   <nav>
