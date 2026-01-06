@@ -1,7 +1,7 @@
 {
-  "locale": "de-DE",
+  "locale": "de",
   "translations": {
-    "date": "",
+    "date": "Datum",
     "time": "Zeit",
     "sys": "Sys.",
     "systolic": "Systolisch",

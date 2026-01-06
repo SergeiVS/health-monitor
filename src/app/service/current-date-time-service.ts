@@ -8,9 +8,9 @@ export class CurrentDateTimeService {
   private month = this.date.getMonth() < 12 ? this.date.getMonth() + 1 : 1;
 
   getCurrentDate = () => {
-    return `${this.date.getFullYear()}-${this.month}-${
-      (new Date().getDate() < 10 ? '0' : '') + new Date().getDate()
-    }`;
+    const formattedMonth = this.month < 10 ? `0${this.month}` : `${this.month}`;
+    const formattedDay = (new Date().getDate() < 10 ? '0' : '') + new Date().getDate();
+    return `${this.date.getFullYear()}-${formattedMonth}-${formattedDay}`;
   };
 
   getCurrentTime = () => {
