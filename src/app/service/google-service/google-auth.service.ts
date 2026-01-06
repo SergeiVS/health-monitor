@@ -10,7 +10,7 @@ export class GoogleAuthService {
   private router = inject(Router);
   private sheetStateService = inject(SheetStateService);
 
-  private googleTokenCient!: google.accounts.oauth2.TokenClient;
+  private googleTokenClient!: google.accounts.oauth2.TokenClient;
   private token: string = '';
   private isLoggedOn = signal(false);
   private rememberMe = signal(false);
@@ -20,7 +20,7 @@ export class GoogleAuthService {
   private readonly token_expire_key = environment.TOKEN_EXPIRE_KEY;
 
   constructor() {
-    this.initGoogleClient();
+    this.initGoogleClient().then();
     this.loadTokenClient();
     // Check for stored token on initialization
     this.restoreStoredSession();
@@ -37,7 +37,7 @@ export class GoogleAuthService {
   }
 
   private loadTokenClient() {
-    this.googleTokenCient = google.accounts.oauth2.initTokenClient({
+    this.googleTokenClient = google.accounts.oauth2.initTokenClient({
       client_id: environment.GAPI_CLIENT_ID,
       scope: environment.GAPI_SCOPE,
       callback: (response) => this.googleOauthInitCallback(response),
@@ -63,9 +63,9 @@ export class GoogleAuthService {
 
   public signIn() {
     if (gapi.client.getToken() === null) {
-      this.googleTokenCient.requestAccessToken({ prompt: 'consent' });
+      this.googleTokenClient.requestAccessToken({ prompt: 'consent' });
     } else {
-      this.googleTokenCient.requestAccessToken({ prompt: '' });
+      this.googleTokenClient.requestAccessToken({ prompt: '' });
     }
   }
 

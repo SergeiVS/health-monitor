@@ -17,7 +17,7 @@ import { DataAppendService } from 'src/app/service/google-service/data-append.se
   styleUrls: ['./indicators-input.component.scss'],
   imports: [ReactiveFormsModule, MatButton],
 })
-export class BloodPressureInputForm implements OnInit {
+export class IndicatorsInputComponent implements OnInit {
   bloodPressureValuesForm!: FormGroup;
 
   private fb = inject(FormBuilder);

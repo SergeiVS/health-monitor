@@ -1,20 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { FormValues } from 'src/app/models/form-values-model';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-resaults-table',
-  templateUrl: './resaults-table.component.html',
-  styleUrls: ['./resaults-table.component.scss'],
+  selector: 'app-results-table',
+  templateUrl: './results-table.component.html',
+  styleUrls: ['./results-table.component.scss'],
   imports: [CommonModule, MatTableModule],
   standalone: true,
 })
-export class ResaultsTableComponent implements OnInit {
+export class ResultsTableComponent  {
   @Input() dataSource!: FormValues[];
   displayedColumns: string[] = ['date', 'time', 'sys', 'dis', 'puls'];
 
   constructor() {}
 
-  ngOnInit() {}
+
 }

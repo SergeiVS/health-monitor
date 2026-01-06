@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SheetStateService {
   private sheetId = signal<string>('');
-  private spredsheetId = signal<string>('');
+  private spreadsheetId = signal<string>('');
 
   constructor() {
     this.loadSheetIdFromStorage();
@@ -17,8 +17,8 @@ export class SheetStateService {
     return this.sheetId();
   }
 
-  public getSpredsheetId(): string {
-    return this.spredsheetId();
+  public getSpreadsheetId(): string {
+    return this.spreadsheetId();
   }
 
   public setSheetId(sheetId: string) {
@@ -32,12 +32,12 @@ export class SheetStateService {
   }
 
   public setSpredsheetId(spredsheetId: string) {
-    this.spredsheetId.set(spredsheetId);
+    this.spreadsheetId.set(spredsheetId);
     localStorage.setItem(environment.SPREADSHEET_ID_STORAGE_KEY, spredsheetId);
   }
 
   public clearSpredsheetId() {
-    this.spredsheetId.set('');
+    this.spreadsheetId.set('');
     localStorage.removeItem(environment.SPREADSHEET_ID_STORAGE_KEY);
   }
 
@@ -46,7 +46,7 @@ export class SheetStateService {
       environment.SPREADSHEET_ID_STORAGE_KEY
     );
     if (storedId) {
-      this.spredsheetId.set(storedId);
+      this.spreadsheetId.set(storedId);
     }
   }
 

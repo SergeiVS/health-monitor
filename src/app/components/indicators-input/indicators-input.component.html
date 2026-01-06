@@ -83,11 +83,11 @@ bloodPressureValuesForm.dirty){
     @if(sysControl?.hasError('required')){
     <li i18n="@@sysIsRequired">Sys field is required</li>
     } @if(sysControl?.hasError('max') || sysControl?.hasError('min')){
-    <li i18n="@@sysValueNotPlausable">Sys value is not plausable</li>
+    <li i18n="@@sysValueNotPlausible">Sys value is not plausible</li>
     } @if(disControl?.hasError('required')){
     <li i18n="@@diasIsRequired">Dias field is required</li>
     } @if(disControl?.hasError('max') || disControl?.hasError('min')){
-    <li i18n="@@diasValueNotPlausable">Dias. value is not plausable</li>
+    <li i18n="@@diasValueNotPlausible">Dias. value is not plausible</li>
     } @if(bloodPressureValuesForm.hasError('valuesNotValid')){
     <li i18n="@@sysHaveToBeOverDis">Sys have to be over dis</li>
     }@if(bloodPressureValuesForm.hasError('dateNotValid')){

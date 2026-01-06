@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { BloodPresureInputForm } from '../../components/indicators-input/idicators-input.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { IndicatorsInputComponent } from '../../components/indicators-input/indicators-input.component';
 import { GoogleAuthService } from 'src/app/service/google-service/google-auth.service';
 import { DriveService } from 'src/app/service/google-service/drive.service';
 import { SheetStateService } from 'src/app/service/sheet-state.service';
@@ -8,7 +8,7 @@ import { SheetStateService } from 'src/app/service/sheet-state.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [BloodPresureInputForm],
+  imports: [IndicatorsInputComponent],
 })
 export class HomeComponent implements OnInit {
 private authService = inject(GoogleAuthService);
@@ -19,7 +19,7 @@ private sheetStateService = inject(SheetStateService);
 
   async ngOnInit() {
     if (this.authService.loginStateSignal()) {
-      if (this.sheetStateService.getSpredsheetId() === '') {
+      if (this.sheetStateService.getSpreadsheetId() === '') {
         await this.driveService.getWorkingFile();
       }
     }

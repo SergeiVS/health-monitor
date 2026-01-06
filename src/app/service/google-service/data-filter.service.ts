@@ -17,7 +17,7 @@ export class DataFilterService {
 
   private sheetName = environment.SHEET_NAME;
   private spredsheetId = linkedSignal(() =>
-    this.sheetStateService.getSpredsheetId()
+    this.sheetStateService.getSpreadsheetId()
   );
 
   constructor() {}

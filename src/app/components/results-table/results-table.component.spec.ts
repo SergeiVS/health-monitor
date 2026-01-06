@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ResaultsTableComponent } from './resaults-table.component';
+import { ResultsTableComponent } from './results-table.component';
 
 describe('ResaultsTableComponent', () => {
-  let component: ResaultsTableComponent;
-  let fixture: ComponentFixture<ResaultsTableComponent>;
+  let component: ResultsTableComponent;
+  let fixture: ComponentFixture<ResultsTableComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResaultsTableComponent ],
+      declarations: [ ResultsTableComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ResaultsTableComponent);
+    fixture = TestBed.createComponent(ResultsTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
