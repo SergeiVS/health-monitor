@@ -12,13 +12,13 @@ import { FormValues } from '../../models/form-values-model';
 import { DataAppendService } from 'src/app/service/google-service/data-append.service';
 
 @Component({
-  selector: 'app-idicators-input',
-  templateUrl: './idicators-input.component.html',
-  styleUrls: ['./idicators-input.component.scss'],
+  selector: 'app-indicators-input',
+  templateUrl: './indicators-input.component.html',
+  styleUrls: ['./indicators-input.component.scss'],
   imports: [ReactiveFormsModule, MatButton],
 })
-export class BloodPresureInputForm implements OnInit {
-  bloodPresureValuesForm!: FormGroup;
+export class BloodPressureInputForm implements OnInit {
+  bloodPressureValuesForm!: FormGroup;
 
   private fb = inject(FormBuilder);
   private formValidator = inject(FormValidator);
@@ -31,7 +31,7 @@ export class BloodPresureInputForm implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.bloodPresureValuesForm = this.fb.group(
+    this.bloodPressureValuesForm = this.fb.group(
       {
         date: [this.currentDate(), Validators.required],
         time: [this.currentTime(), Validators.required],
@@ -57,14 +57,14 @@ export class BloodPresureInputForm implements OnInit {
     );
   }
   get formControls() {
-    return this.bloodPresureValuesForm.controls;
+    return this.bloodPressureValuesForm.controls;
   }
 
   get sysControl() {
-    return this.bloodPresureValuesForm.get('sys');
+    return this.bloodPressureValuesForm.get('sys');
   }
   get disControl() {
-    return this.bloodPresureValuesForm.get('dis');
+    return this.bloodPressureValuesForm.get('dis');
   }
 
   onSubmit = () => {
@@ -76,12 +76,12 @@ export class BloodPresureInputForm implements OnInit {
       pulse: this.formControls['pulse'].value,
     };
 
-    if (this.bloodPresureValuesForm.valid) {
+    if (this.bloodPressureValuesForm.valid) {
       this.dataAppendService.addNewValues(formValues);
-      this.bloodPresureValuesForm.reset();
-      this.bloodPresureValuesForm.markAsPristine();
-      this.bloodPresureValuesForm.markAsUntouched();
-      this.bloodPresureValuesForm.updateValueAndValidity();
+      this.bloodPressureValuesForm.reset();
+      this.bloodPressureValuesForm.markAsPristine();
+      this.bloodPressureValuesForm.markAsUntouched();
+      this.bloodPressureValuesForm.updateValueAndValidity();
       this.currentDate.set(this.dateService.getCurrentDate());
       this.currentTime.set(this.dateService.getCurrentTime());
       this.formControls['date'].setValue(this.currentDate());

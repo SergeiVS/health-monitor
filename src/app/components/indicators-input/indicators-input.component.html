@@ -1,5 +1,5 @@
 <form
-  [formGroup]="bloodPresureValuesForm"
+  [formGroup]="bloodPressureValuesForm"
   (ngSubmit)="onSubmit()"
   class="form-container"
 >
@@ -32,23 +32,23 @@
       <div class="input-wrapper">
         <p><label for="sys" i18n="@@sys">Sys.</label><span>*</span></p>
         <input
-          i18n-placeholder="@@systonic"
+          i18n-placeholder="@@systolic"
           id="sys"
           class="input-field"
           type="number"
           formControlName="sys"
-          placeholder="Systonic"
+          placeholder="Systolic"
         />
       </div>
       <div class="input-wrapper">
         <p><label for="dis" i18n="@@dis">Dias.</label><span>*</span></p>
         <input
-          i18n-placeholder="@@diastonic"
+          i18n-placeholder="@@diatonic"
           id="dis"
           class="input-field"
           type="number"
           formControlName="dis"
-          placeholder="Diastonic"
+          placeholder="Diatonic"
         />
       </div>
       <div class="input-wrapper">
@@ -69,14 +69,14 @@
     matButton="filled"
     type="submit"
     (submit)="onSubmit()"
-    [disabled]="!bloodPresureValuesForm.valid"
+    [disabled]="!bloodPressureValuesForm.valid"
   >
     Insert Values
   </button>
   <p i18n="@@required">*- Required</p>
 </form>
-@if(!bloodPresureValuesForm.valid && bloodPresureValuesForm.touched &&
-bloodPresureValuesForm.dirty){
+@if(!bloodPressureValuesForm.valid && bloodPressureValuesForm.touched &&
+bloodPressureValuesForm.dirty){
 
 <div class="errors-container">
   <ul>
@@ -88,9 +88,9 @@ bloodPresureValuesForm.dirty){
     <li i18n="@@diasIsRequired">Dias field is required</li>
     } @if(disControl?.hasError('max') || disControl?.hasError('min')){
     <li i18n="@@diasValueNotPlausable">Dias. value is not plausable</li>
-    } @if(bloodPresureValuesForm.hasError('valuesNotValid')){
+    } @if(bloodPressureValuesForm.hasError('valuesNotValid')){
     <li i18n="@@sysHaveToBeOverDis">Sys have to be over dis</li>
-    }@if(bloodPresureValuesForm.hasError('dateNotValid')){
+    }@if(bloodPressureValuesForm.hasError('dateNotValid')){
     <li i18n="@@dateIsInTheFuture">Inserted date and time is in the future</li>
     }
   </ul>

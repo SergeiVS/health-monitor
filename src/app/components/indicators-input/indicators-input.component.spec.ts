@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { BloodPresureInputForm } from './idicators-input.component';
+import { BloodPressureInputForm } from './indicators-input.component';
 
-describe('IdicatorsInputComponent', () => {
-  let component: BloodPresureInputForm;
-  let fixture: ComponentFixture<BloodPresureInputForm>;
-
+describe('IndicatorsInputComponent', () => {
+  let component: BloodPressureInputForm;
+  let fixture: ComponentFixture<BloodPressureInputForm>;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BloodPresureInputForm ],
+      declarations: [ BloodPressureInputForm ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BloodPresureInputForm);
+    fixture = TestBed.createComponent(BloodPressureInputForm);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

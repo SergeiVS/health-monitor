@@ -16,6 +16,7 @@ export const environment = {
   SPREADSHEET_ID_STORAGE_KEY: 'blutdruckTableId',
   SHEET_NAME: 'sheet1',
   SHEET_ID_STORAGE_KEY: 'blutdruckSheetId',
+
 };
 
 /*
