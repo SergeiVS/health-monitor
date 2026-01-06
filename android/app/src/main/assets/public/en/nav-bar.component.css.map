@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/nav-bar/nav-bar.component.scss"],
+  "sourcesContent": [".nav-bar-container{\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 1rem 2rem;\r\n  width: 100%;\r\n}\r\n\r\nimg{\r\n  height: 3rem;\r\n  width: 3rem;\r\n}\r\n\r\n.sign-button{\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,eAAA;AACA,mBAAA;AACA,WAAA,KAAA;AACA,SAAA;;AAGF;AACE,UAAA;AACA,SAAA;;AAGF,CAAA;AACE,WAAA;AACA,eAAA;;",
+  "names": []
+}
