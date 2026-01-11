@@ -13,8 +13,7 @@
       },
       "i18n": {
         "sourceLocale": {
-          "code": "en-US",
-          "baseHref": "/en/"
+          "code": "en-US"
         },
         "locales": {
           "en":{
@@ -24,8 +23,7 @@
             "translation": "src/locale/messages.de.json"
           },
           "ru": {
-            "translation": "src/locale/messages.ru.json",
-            "baseHref": "/ru/"
+            "translation": "src/locale/messages.ru.json"
           }
         }
       },
