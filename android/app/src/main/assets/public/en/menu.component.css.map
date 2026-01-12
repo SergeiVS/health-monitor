@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/components/menu/menu.component.scss"],
-  "sourcesContent": ["\r\n.menu{\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: space-between;\r\n  padding: 1rem;\r\n}\r\n.menu-item {\r\n  display: flex;\r\n  gap: 2rem;\r\n  align-items: space-between;\r\n  font-size: 2rem;\r\n}\r\n"],
-  "mappings": ";AACA,CAAA;AACE,WAAA;AACA,eAAA;AACA,mBAAA;AACA,WAAA;;AAEF,CAAA;AACE,WAAA;AACA,OAAA;AACA,eAAA;AACA,aAAA;;",
-  "names": []
-}

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/log-in/log-in.component.scss"],
-  "sourcesContent": ["h4, p {\r\n  text-align: center;\r\n}\r\n\r\n.remember-me-section {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n  gap: 0.5rem;\r\n  margin: 1.5rem 0;\r\n  padding: 1rem;\r\n  background-color: rgba(0, 0, 0, 0.05);\r\n  border-radius: 0.5rem;\r\n\r\n  .checkbox-label {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    cursor: pointer;\r\n    user-select: none;\r\n\r\n    .checkbox-input {\r\n      cursor: pointer;\r\n      width: 18px;\r\n      height: 18px;\r\n    }\r\n\r\n    span {\r\n      font-weight: 500;\r\n    }\r\n  }\r\n\r\n  .checkbox-hint {\r\n    font-size: 0.875rem;\r\n    color: rgba(0, 0, 0, 0.6);\r\n    margin: 0;\r\n  }\r\n}\r\n"],
-  "mappings": ";AAAA;AAAA;AACE,cAAA;;AAGF,CAAA;AACE,WAAA;AACA,kBAAA;AACA,eAAA;AACA,OAAA;AACA,UAAA,OAAA;AACA,WAAA;AACA,oBAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;AACA,iBAAA;;AAEA,CAVF,oBAUE,CAAA;AACE,WAAA;AACA,eAAA;AACA,OAAA;AACA,UAAA;AACA,uBAAA;AAAA,eAAA;;AAEA,CAjBJ,oBAiBI,CAPF,eAOE,CAAA;AACE,UAAA;AACA,SAAA;AACA,UAAA;;AAGF,CAvBJ,oBAuBI,CAbF,eAaE;AACE,eAAA;;AAIJ,CA5BF,oBA4BE,CAAA;AACE,aAAA;AACA,SAAA,KAAA,CAAA,EAAA,CAAA,EAAA,CAAA,EAAA;AACA,UAAA;;",
-  "names": []
-}

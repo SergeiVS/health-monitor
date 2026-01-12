@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/root-page/root-page.component.scss"],
-  "sourcesContent": [".root-container {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 1rem;\r\n  align-items: center;\r\n  justify-content: flex-start;\r\n  min-height: 100%;\r\n  padding: 0;\r\n}\r\n"],
-  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,kBAAA;AACA,OAAA;AACA,eAAA;AACA,mBAAA;AACA,cAAA;AACA,WAAA;;",
-  "names": []
-}
